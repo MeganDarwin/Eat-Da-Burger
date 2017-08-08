@@ -23,26 +23,22 @@ router.get("/", function(req, res) {
   });
 });
 
-router.post("/", function(req, res) {
-  burger.insertOne([
-    "burger_name", "devoured"
-  ], [
-    req.body.burger_name, req.body.devoured
-  ], function() {
-    res.redirect("/");
+
+router.post('/burgers/insertOne', function(req, res) {
+  burger.insertOne(['burger_name', 'devoured'], [req.body.burger_name, false],
+   function() {
+    res.redirect('/');
   });
 });
 
-router.put("/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
-  console.log("condition", condition);
-  burger.updateOne({
-    devoured: req.body.devoured
-  }, condition, function() {
-    res.redirect("/");
+router.put('/burgers/updateOne/:id', function(req, res) {
+  var condition = 'id = ' + req.params.id;
+  console.log('condition', condition);
+
+  burger.updateOne({devoured: req.body.devoured}, condition, function() {
+    res.redirect('/');
   });
 });
-
 
 
 // Export routes for server.js to use.
